@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// TODO: incomplete.
 func main() {
 	var n, ma, mb int
 	fmt.Scanf("%d %d %d", &n, &ma, &mb)
