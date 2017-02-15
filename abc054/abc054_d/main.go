@@ -26,14 +26,17 @@ func main() {
 		}
 	}
 
+	mixMax := n*abMax + 1
+	priceMax := n*cMax + 1
+
 	// Initialize.
 	dp := make([][][]int, n+1)
 	for i := 0; i < n+1; i++ {
-		dp[i] = make([][]int, n*abMax+1)
-		for j := 0; j < n*abMax+1; j++ {
-			dp[i][j] = make([]int, n*abMax+1)
-			for k := 0; k < n*abMax+1; k++ {
-				dp[i][j][k] = n*cMax + 1
+		dp[i] = make([][]int, mixMax)
+		for j := 0; j < mixMax; j++ {
+			dp[i][j] = make([]int, mixMax)
+			for k := 0; k < mixMax; k++ {
+				dp[i][j][k] = priceMax
 			}
 		}
 	}
@@ -41,9 +44,9 @@ func main() {
 	dp[0][0][0] = 0
 
 	for i := 0; i < n; i++ {
-		for ca := 0; ca < n*abMax+1; ca++ {
-			for cb := 0; cb < n*abMax+1; cb++ {
-				if dp[i][ca][cb] == n*cMax+1 {
+		for ca := 0; ca < mixMax; ca++ {
+			for cb := 0; cb < mixMax; cb++ {
+				if dp[i][ca][cb] == priceMax {
 					continue
 				}
 
@@ -53,16 +56,16 @@ func main() {
 		}
 	}
 
-	ans := n*cMax + 1
-	for ca := 1; ca < n*abMax+1; ca++ {
-		for cb := 1; cb < n*abMax+1; cb++ {
+	ans := priceMax
+	for ca := 1; ca < mixMax; ca++ {
+		for cb := 1; cb < mixMax; cb++ {
 			if ca*mb == cb*ma {
 				ans = selectMin(ans, dp[n][ca][cb])
 			}
 		}
 	}
 
-	if ans == n*cMax+1 {
+	if ans == priceMax {
 		ans = -1
 	}
 
