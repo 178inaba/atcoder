@@ -32,6 +32,9 @@ func nextInt() int {
 
 func nextString() string {
 	sc.Scan()
+	if err := sc.Err(); err != nil {
+		panic(err)
+	}
 
 	return sc.Text()
 }
