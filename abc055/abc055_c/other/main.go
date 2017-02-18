@@ -11,7 +11,13 @@ func main() {
 	N := nextInt()
 	M := nextInt()
 
-	fmt.Println(min((2*N+M)/4, M/2))
+	ans := min(N, M/2)
+	rem := M - ans*2
+	if rem > 0 {
+		ans += rem / 4
+	}
+
+	fmt.Println(ans)
 }
 
 // Input. ----------
