@@ -11,26 +11,10 @@ func main() {
 	N := nextInt()
 	M := nextInt()
 
-	ans := 0
-	for {
-		for {
-			if N == 0 || M < 2 {
-				break
-			}
-
-			ans++
-			N--
-			M -= 2
-		}
-
-		if M < 4 {
-			break
-		}
-
-		if N == 0 {
-			N++
-			M -= 2
-		}
+	ans := min(N, M/2)
+	rem := M - ans*2
+	if rem > 0 {
+		ans += rem / 4
 	}
 
 	fmt.Println(ans)
@@ -55,3 +39,15 @@ func nextInt() int {
 }
 
 // ---------- Input.
+
+// Util. ----------
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+
+	return y
+}
+
+// ---------- Util.
