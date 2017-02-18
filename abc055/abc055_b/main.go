@@ -2,12 +2,21 @@ package main
 
 import (
 	"bufio"
+	"fmt"
+	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	N := nextInt()
+	power := 1
+	max := int(math.Pow10(9)) + 7
+	for i := 1; i <= N; i++ {
+		power = power * i % max
+	}
 
+	fmt.Println(power)
 }
 
 // Input. ----------

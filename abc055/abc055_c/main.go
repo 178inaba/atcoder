@@ -2,12 +2,38 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 )
 
 func main() {
+	N := nextInt()
+	M := nextInt()
 
+	ans := 0
+	for {
+		for {
+			if N == 0 || M < 2 {
+				break
+			}
+
+			ans++
+			N--
+			M -= 2
+		}
+
+		if M < 4 {
+			break
+		}
+
+		if N == 0 {
+			N++
+			M -= 2
+		}
+	}
+
+	fmt.Println(ans)
 }
 
 // Input. ----------

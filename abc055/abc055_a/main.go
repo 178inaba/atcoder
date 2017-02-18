@@ -2,12 +2,17 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 )
 
 func main() {
+	N := nextInt()
+	x := N * 800
+	y := N / 15 * 200
 
+	fmt.Println(x - y)
 }
 
 // Input. ----------
