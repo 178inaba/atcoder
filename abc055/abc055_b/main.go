@@ -9,10 +9,10 @@ import (
 )
 
 func main() {
-	N := uint64(nextInt())
-	power := uint64(1)
-	max := uint64(math.Pow10(9)) + 7
-	for i := uint64(1); i <= N; i++ {
+	N := nextInt()
+	power := 1
+	max := int(math.Pow10(9)) + 7
+	for i := 1; i <= N; i++ {
 		power = power * i % max
 	}
 
