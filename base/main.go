@@ -28,4 +28,22 @@ func nextInt() int {
 	return i
 }
 
+func nextString() string {
+	sc.Scan()
+
+	return sc.Text()
+}
+
 // ---------- Input.
+
+// Util. ----------
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+
+	return y
+}
+
+// ---------- Util.
