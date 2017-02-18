@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -64,6 +65,7 @@ func main() {
 var sc = bufio.NewScanner(os.Stdin)
 
 func init() {
+	sc.Buffer([]byte{}, math.MaxInt64)
 	sc.Split(bufio.ScanWords)
 }
 
