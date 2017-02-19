@@ -20,7 +20,7 @@ func main() {
 		blocks[i] = append(blocks[i], ' ')
 	}
 
-	_, maxBlocks := edit(blocks, 2, 1)
+	_, maxBlocks := edit(blocks, N, 1)
 	for _, block := range maxBlocks {
 		fmt.Println(string(block))
 	}
@@ -39,6 +39,7 @@ func copyBlocks(base [][]byte) [][]byte {
 func edit(blocks [][]byte, i, j int) (int, [][]byte) {
 	maxPoint := 0
 	maxBlocks := copyBlocks(blocks)
+
 	for k := i; k > 1; k-- {
 		for l := j; l <= N; l++ {
 			if blocks[k][l] == '.' {
@@ -72,22 +73,34 @@ func edit(blocks [][]byte, i, j int) (int, [][]byte) {
 						maxPoint = p
 						maxBlocks = b
 					}
+
+					if p, b := edit(plus, k-1, 1); p > maxPoint {
+						maxPoint = p
+						maxBlocks = b
+					}
+
+					if p, b := edit(minus, k-1, 1); p > maxPoint {
+						maxPoint = p
+						maxBlocks = b
+					}
 				} else {
 					if p, b := edit(blocks, k, l+1); p > maxPoint {
 						maxPoint = p
 						maxBlocks = b
 					}
+
+					if p, b := edit(plus, k, l+1); p > maxPoint {
+						maxPoint = p
+						maxBlocks = b
+					}
+
+					if p, b := edit(minus, k, l+1); p > maxPoint {
+						maxPoint = p
+						maxBlocks = b
+					}
 				}
 
-				if p, b := edit(plus, k, l+1); p > maxPoint {
-					maxPoint = p
-					maxBlocks = b
-				}
-
-				if p, b := edit(minus, k, l+1); p > maxPoint {
-					maxPoint = p
-					maxBlocks = b
-				}
+				return maxPoint, maxBlocks
 			}
 		}
 	}
