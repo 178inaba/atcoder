@@ -4,14 +4,18 @@ import (
 	"bufio"
 	"fmt"
 	"math"
+	"math/rand"
 	"os"
 	"strconv"
+	"time"
 )
 
 // N is ...
 const N = 50
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
+
 	blocks := make([][]byte, N+2)
 	blocks[0] = make([]byte, N+2)
 	blocks[N+1] = make([]byte, N+2)
@@ -20,8 +24,22 @@ func main() {
 		blocks[i] = append(blocks[i], ' ')
 	}
 
-	_, maxBlocks := edit(blocks, N, 1)
-	for _, block := range maxBlocks {
+	maxPoint := 0
+	maxBlocks := copyBlocks(blocks)
+	for i := 0; i < 2; i++ {
+		if p, b := edit(blocks, N, 1); p > maxPoint {
+			maxPoint = p
+			maxBlocks = b
+		}
+	}
+
+	for i, block := range maxBlocks {
+		if i == 0 || i == N+1 {
+			continue
+		}
+
+		block = block[:len(block)-1]
+		block = block[1:]
 		fmt.Println(string(block))
 	}
 }
@@ -37,31 +55,22 @@ func copyBlocks(base [][]byte) [][]byte {
 }
 
 func edit(blocks [][]byte, i, j int) (int, [][]byte) {
+	blks := copyBlocks(blocks)
 	maxPoint := 0
-	maxBlocks := copyBlocks(blocks)
-
+	maxBlocks := blks
 	for k := i; k > 1; k-- {
 		for l := j; l <= N; l++ {
-			if blocks[k][l] == '.' {
-				plus := copyBlocks(blocks)
-				minus := copyBlocks(blocks)
-
-				plus[k][l] = '+'
-				minus[k][l] = '-'
-
-				if p := result(copyBlocks(blocks)); p > maxPoint {
-					maxPoint = p
-					maxBlocks = blocks
+			if blks[k][l] == '.' {
+				switch rand.Intn(3) {
+				case 1:
+					blks[k][l] = '+'
+				case 2:
+					blks[k][l] = '-'
 				}
 
-				if p := result(copyBlocks(plus)); p > maxPoint {
+				if p := result(copyBlocks(blks)); p > maxPoint {
 					maxPoint = p
-					maxBlocks = plus
-				}
-
-				if p := result(copyBlocks(minus)); p > maxPoint {
-					maxPoint = p
-					maxBlocks = minus
+					maxBlocks = blks
 				}
 
 				if l == N {
@@ -69,32 +78,12 @@ func edit(blocks [][]byte, i, j int) (int, [][]byte) {
 						return maxPoint, maxBlocks
 					}
 
-					if p, b := edit(blocks, k-1, 1); p > maxPoint {
-						maxPoint = p
-						maxBlocks = b
-					}
-
-					if p, b := edit(plus, k-1, 1); p > maxPoint {
-						maxPoint = p
-						maxBlocks = b
-					}
-
-					if p, b := edit(minus, k-1, 1); p > maxPoint {
+					if p, b := edit(blks, k-1, 1); p > maxPoint {
 						maxPoint = p
 						maxBlocks = b
 					}
 				} else {
-					if p, b := edit(blocks, k, l+1); p > maxPoint {
-						maxPoint = p
-						maxBlocks = b
-					}
-
-					if p, b := edit(plus, k, l+1); p > maxPoint {
-						maxPoint = p
-						maxBlocks = b
-					}
-
-					if p, b := edit(minus, k, l+1); p > maxPoint {
+					if p, b := edit(blks, k, l+1); p > maxPoint {
 						maxPoint = p
 						maxBlocks = b
 					}
