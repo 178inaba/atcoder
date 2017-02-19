@@ -10,9 +10,10 @@ import (
 	"time"
 )
 
-// N is ...
+// N is 50
 const N = 50
 
+// TODO Incomplete.
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
