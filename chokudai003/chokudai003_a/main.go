@@ -26,7 +26,7 @@ func main() {
 
 	maxPoint := 0
 	maxBlocks := copyBlocks(blocks)
-	for i := 0; i < 2; i++ {
+	for i := 0; i < 1; i++ {
 		if p, b := edit(blocks, N, 1); p > maxPoint {
 			maxPoint = p
 			maxBlocks = b
