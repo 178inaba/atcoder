@@ -2,13 +2,30 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	str := nextString()
 
+	base := []rune{'y', 'a', 'h', 'o', 'o'}
+	for _, r := range str {
+		for i, br := range base {
+			if br == r {
+				base = append(base[:i], base[i+1:]...)
+				break
+			}
+		}
+	}
+
+	if len(base) == 0 {
+		fmt.Println("YES")
+	} else {
+		fmt.Println("NO")
+	}
 }
 
 // Input. ----------
