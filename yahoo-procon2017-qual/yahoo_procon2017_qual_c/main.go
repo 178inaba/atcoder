@@ -30,8 +30,10 @@ func main() {
 	}
 
 	targets := make([]string, 0, K)
+	sort.Sort(sort.Reverse(sort.IntSlice(A)))
 	for _, a := range A {
 		targets = append(targets, S[a])
+		S = append(S[:a], S[a+1:]...)
 	}
 
 	sort.Strings(targets)
@@ -58,14 +60,14 @@ func main() {
 		return
 	}
 
-	for i := 1; i <= N; i++ {
-		if !strings.HasPrefix(S[i], base) {
-			fmt.Println(base)
+	for i := 1; i < len(S); i++ {
+		if strings.HasPrefix(S[i], base) {
+			fmt.Println(-1)
 			return
 		}
 	}
 
-	fmt.Println(-1)
+	fmt.Println(base)
 }
 
 // Input. ----------
