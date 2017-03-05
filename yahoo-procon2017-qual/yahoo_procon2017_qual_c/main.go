@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"math"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -30,13 +29,12 @@ func main() {
 	}
 
 	targets := make([]string, 0, K)
-	sort.Sort(sort.Reverse(sort.IntSlice(A)))
+	targetIndexes := make([]bool, N+1)
 	for _, a := range A {
 		targets = append(targets, S[a])
-		S = append(S[:a], S[a+1:]...)
+		targetIndexes[a] = true
 	}
 
-	//sort.Strings(targets)
 	base := targets[0]
 	for i := 1; i < len(targets); i++ {
 		for j := 0; j < min(len(base), len(targets[i])); j++ {
@@ -50,6 +48,10 @@ func main() {
 	for i := 1; i <= len(base); i++ {
 		result := true
 		for j := 1; j < len(S); j++ {
+			if targetIndexes[j] {
+				continue
+			}
+
 			if strings.HasPrefix(S[j], base[:i]) {
 				result = false
 				break
