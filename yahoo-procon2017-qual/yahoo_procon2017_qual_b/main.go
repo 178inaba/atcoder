@@ -2,13 +2,29 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 )
 
 func main() {
+	N := nextInt()
+	K := nextInt()
 
+	A := make([]int, 0, N)
+	for i := 0; i < N; i++ {
+		A = append(A, nextInt())
+	}
+
+	sort.Ints(A)
+	total := 0
+	for i := 0; i < K; i++ {
+		total += A[i] + i
+	}
+
+	fmt.Println(total)
 }
 
 // Input. ----------
