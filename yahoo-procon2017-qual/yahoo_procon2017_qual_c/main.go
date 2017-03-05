@@ -14,6 +14,11 @@ func main() {
 	N := nextInt()
 	K := nextInt()
 
+	if N == K {
+		fmt.Println()
+		return
+	}
+
 	A := make([]int, 0, K)
 	for i := 0; i < K; i++ {
 		A = append(A, nextInt())
@@ -22,11 +27,6 @@ func main() {
 	S := make([]string, 1, N)
 	for i := 0; i < N; i++ {
 		S = append(S, nextString())
-	}
-
-	if N == K {
-		fmt.Println()
-		return
 	}
 
 	targets := make([]string, 0, K)
