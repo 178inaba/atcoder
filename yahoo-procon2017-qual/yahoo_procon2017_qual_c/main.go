@@ -55,11 +55,6 @@ func main() {
 		base = base[:len(base)-1]
 	}
 
-	if len(base) == 0 {
-		fmt.Println(-1)
-		return
-	}
-
 	for i := 1; i < len(S); i++ {
 		if strings.HasPrefix(S[i], base) {
 			fmt.Println(-1)
