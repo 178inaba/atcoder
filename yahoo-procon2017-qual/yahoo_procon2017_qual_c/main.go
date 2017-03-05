@@ -36,23 +36,15 @@ func main() {
 		S = append(S[:a], S[a+1:]...)
 	}
 
-	sort.Strings(targets)
+	//sort.Strings(targets)
 	base := targets[0]
-	charCnt := len(base)
-	for i := 0; i < charCnt; i++ {
-		result := true
-		for j := 1; j < len(targets); j++ {
-			if !strings.HasPrefix(targets[j], base) {
-				result = false
+	for i := 1; i < len(targets); i++ {
+		for j := 0; j < min(len(base), len(targets[i])); j++ {
+			if base[j] != targets[i][j] {
+				base = base[:j]
 				break
 			}
 		}
-
-		if result == true {
-			break
-		}
-
-		base = base[:len(base)-1]
 	}
 
 	for i := 1; i <= len(base); i++ {
