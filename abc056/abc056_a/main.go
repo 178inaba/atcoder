@@ -12,12 +12,10 @@ func main() {
 	a := nextString()
 	b := nextString()
 
-	if a == "H" {
-		fmt.Println(b)
-	} else if b == "H" {
-		fmt.Println("D")
-	} else {
+	if a == b {
 		fmt.Println("H")
+	} else {
+		fmt.Println("D")
 	}
 }
 
