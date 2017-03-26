@@ -51,4 +51,16 @@ func min(x, y int) int {
 	return y
 }
 
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+
+	return y
+}
+
+func abs(x int) int {
+	return int(math.Abs(float64(x)))
+}
+
 // ---------- Util.
