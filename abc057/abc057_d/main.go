@@ -41,28 +41,28 @@ func main() {
 		}
 	}
 
-	// Calc N and k.
-	An, Ak := 0, 0
+	// Calc n and k.
+	n, k := 0, 0
 	for i := 0; i < N; i++ {
 		if vs[i] == vs[A-1] {
-			An++
+			n++
 			if i < A {
-				Ak++
+				k++
 			}
 		}
 	}
 
 	cnt := 0
-	if Ak == A {
-		for ; Ak <= B; Ak++ {
-			if Ak >= len(dp[An]) {
+	if k == A {
+		for ; k <= B; k++ {
+			if k >= len(dp[n]) {
 				break
 			}
 
-			cnt += dp[An][Ak]
+			cnt += dp[n][k]
 		}
 	} else {
-		cnt = dp[An][Ak]
+		cnt = dp[n][k]
 	}
 
 	fmt.Printf("%f\n%d\n", avg, cnt)
