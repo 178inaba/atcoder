@@ -2,13 +2,36 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 )
 
 func main() {
+	N := nextInt()
+	A := nextInt()
+	B := nextInt()
 
+	vs := make([]int, N)
+	for i := 0; i < N; i++ {
+		vs[i] = nextInt()
+	}
+
+	sort.Sort(sort.Reverse(sort.IntSlice(vs)))
+
+	var avg float64
+	for i := 0; i < A; i++ {
+		avg += float64(vs[i])
+	}
+
+	avg /= float64(A)
+
+	fmt.Printf("%f\n", avg)
+
+	// Debug.
+	B++
 }
 
 // Input. ----------
