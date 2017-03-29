@@ -28,19 +28,10 @@ func main() {
 
 	avg /= float64(A)
 
-	dp := make([][]int, N)
-	An, Ak := 0, 0
-	for i := 0; i < N; i++ {
-		// Calc N and k.
-		if vs[i] == vs[A-1] {
-			An++
-			if i < A {
-				Ak++
-			}
-		}
-
-		// Make dp.
-		dp[i] = make([]int, i+1)
+	// Make dp.
+	dp := make([][]int, 51)
+	for i := 0; i <= N; i++ {
+		dp[i] = make([]int, 51)
 		for j := 0; j <= i; j++ {
 			if j == 0 || j == i {
 				dp[i][j] = 1
@@ -50,7 +41,16 @@ func main() {
 		}
 	}
 
-	fmt.Println(dp)
+	// Calc N and k.
+	An, Ak := 0, 0
+	for i := 0; i < N; i++ {
+		if vs[i] == vs[A-1] {
+			An++
+			if i < A {
+				Ak++
+			}
+		}
+	}
 
 	cnt := 0
 	if Ak == A {
