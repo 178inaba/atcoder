@@ -29,9 +29,9 @@ func main() {
 	avg /= float64(A)
 
 	// Make dp.
-	dp := make([][]int, 51)
+	dp := make([][]int, N+1)
 	for i := 0; i <= N; i++ {
-		dp[i] = make([]int, 51)
+		dp[i] = make([]int, i+1)
 		for j := 0; j <= i; j++ {
 			if j == 0 || j == i {
 				dp[i][j] = 1
@@ -55,6 +55,10 @@ func main() {
 	cnt := 0
 	if Ak == A {
 		for ; Ak <= B; Ak++ {
+			if Ak >= len(dp[An]) {
+				break
+			}
+
 			cnt += dp[An][Ak]
 		}
 	} else {
