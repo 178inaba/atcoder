@@ -8,65 +8,71 @@ import (
 	"strconv"
 )
 
-type data struct {
-	vs, ds, cs []int
-	graph      [][]bool
-	NColor     []int
-	M, Q       int
+type paint struct {
+	graph, result map[int]map[int]bool
+	colors        []int
 }
 
 func main() {
 	N := nextInt()
 	M := nextInt()
+
 	as, bs := make([]int, M), make([]int, M)
+	graph, result := map[int]map[int]bool{}, map[int]map[int]bool{}
 	for i := 0; i < M; i++ {
-		as[i] = nextInt()
-		bs[i] = nextInt()
+		as[i] = nextInt() - 1
+		bs[i] = nextInt() - 1
+
+		if graph[as[i]] == nil {
+			graph[as[i]] = map[int]bool{}
+		}
+		if graph[bs[i]] == nil {
+			graph[bs[i]] = map[int]bool{}
+		}
+		graph[as[i]][bs[i]], graph[bs[i]][as[i]] = true, true
 	}
 	Q := nextInt()
 	vs, ds, cs := make([]int, Q), make([]int, Q), make([]int, Q)
 	for i := 0; i < Q; i++ {
-		vs[i] = nextInt()
+		vs[i] = nextInt() - 1
 		ds[i] = nextInt()
 		cs[i] = nextInt()
 	}
 
-	graph := make([][]bool, M+1)
-	for i := 0; i < M+1; i++ {
-		graph[i] = make([]bool, M+1)
-	}
-	for i := 0; i < M; i++ {
-		graph[as[i]][bs[i]], graph[bs[i]][as[i]] = true, true
+	p := paint{graph: graph, result: result, colors: make([]int, N)}
+
+	for i := Q - 1; i >= 0; i-- {
+		p.dp(vs[i], ds[i], cs[i])
 	}
 
-	d := data{vs: vs, ds: ds, cs: cs, graph: graph, NColor: make([]int, N+1), M: M, Q: Q}
-	d.recursion(0)
-
-	for _, c := range d.NColor {
+	for _, c := range p.colors {
 		fmt.Println(c)
 	}
 }
 
-func (d data) recursion(Qi int) {
-	if Qi >= d.Q {
+func (p *paint) dp(v, d, c int) {
+	if p.result[v] == nil {
+		p.result[v] = map[int]bool{}
+	}
+
+	if p.result[v][d] {
 		return
 	}
 
-	//fmt.Println(Qi, len(d.NColor), len(d.cs))
-	d.NColor[d.vs[Qi]] = d.cs[Qi]
-	fmt.Println(0)
+	p.result[v][d] = true
 
-	for i := 0; i < d.ds[Qi]; i++ {
-		for j := 0; j < d.M; j++ {
-			if d.graph[d.vs[Qi]+i][i] {
-				d.NColor[i] = d.cs[Qi]
-			}
-		}
-
-		fmt.Println(111)
+	if d == 0 {
+		p.colors[v] = c
+		return
 	}
 
-	d.recursion(Qi + 1)
+	p.dp(v, d-1, c)
+
+	for u, exist := range p.graph[v] {
+		if exist {
+			p.dp(u, d-1, c)
+		}
+	}
 }
 
 // Input. ----------
