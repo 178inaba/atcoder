@@ -9,30 +9,11 @@ import (
 )
 
 func main() {
-	N := nextInt()
-	var n int
-	var p []int
-	for n = 40; n > 0; n-- {
-		if N >= (1<<uint(n))-1 {
-			break
-		}
-	}
-	for i := 1; i <= n; i++ {
-		p = append(p, i)
-	}
-	N -= (1 << uint(n)) - 1
+	p := construct(int64(nextInt()))
 
-	for i := n - 1; i >= 0; i-- {
-		if N < 1<<uint(i) {
-			continue
-		}
-		n++
-		p = append(p[:i], append([]int{n}, p[i:]...)...)
-		N -= 1 << uint(i)
-	}
-
-	fmt.Println(len(p) * 2)
-	for i := 0; i < len(p); i++ {
+	pLen := len(p)
+	fmt.Println(pLen * 2)
+	for i := 0; i < pLen; i++ {
 		fmt.Printf("%d ", i+1)
 	}
 
@@ -41,6 +22,31 @@ func main() {
 	}
 
 	fmt.Println()
+}
+
+func construct(N int64) []int {
+	var n int
+	var p []int
+	for n = 40; n > 0; n-- {
+		if N >= (int64(1)<<uint(n))-1 {
+			break
+		}
+	}
+	for i := 1; i <= n; i++ {
+		p = append(p, i)
+	}
+	N -= (int64(1) << uint(n)) - 1
+
+	for i := n - 1; i >= 0; i-- {
+		if N < int64(1)<<uint(i) {
+			continue
+		}
+		n++
+		p = append(p[:i], append([]int{n}, p[i:]...)...)
+		N -= int64(1) << uint(i)
+	}
+
+	return p
 }
 
 // Input. ----------
