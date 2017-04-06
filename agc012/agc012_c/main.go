@@ -2,13 +2,43 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	N := nextInt()
+	var n int
+	var p []int
+	for n = 40; n > 0; n-- {
+		if N >= (1<<uint(n))-1 {
+			break
+		}
+	}
+	for i := 1; i <= n; i++ {
+		p = append(p, i)
+	}
+	N -= (1 << uint(n)) - 1
 
+	for i := n - 1; i >= 0; i-- {
+		if N < 1<<uint(i) {
+			continue
+		}
+		n++
+		p = append(p[:i], append([]int{p[0] + i}, p[i:]...)...)
+		N -= 1 << uint(i)
+	}
+
+	fmt.Println(len(p) * 2)
+	for i := 0; i < 2; i++ {
+		for _, v := range p {
+			fmt.Printf("%d ", v)
+		}
+	}
+
+	fmt.Println()
 }
 
 // Input. ----------
