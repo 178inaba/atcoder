@@ -27,15 +27,17 @@ func main() {
 			continue
 		}
 		n++
-		p = append(p[:i], append([]int{p[0] + i}, p[i:]...)...)
+		p = append(p[:i], append([]int{n}, p[i:]...)...)
 		N -= 1 << uint(i)
 	}
 
 	fmt.Println(len(p) * 2)
-	for i := 0; i < 2; i++ {
-		for _, v := range p {
-			fmt.Printf("%d ", v)
-		}
+	for i := 0; i < len(p); i++ {
+		fmt.Printf("%d ", i+1)
+	}
+
+	for _, v := range p {
+		fmt.Printf("%d ", v)
 	}
 
 	fmt.Println()
