@@ -44,19 +44,11 @@ func nextString() string {
 // Util. ----------
 
 func min(x, y int) int {
-	if x < y {
-		return x
-	}
-
-	return y
+	return int(math.Min(float64(x), float64(y)))
 }
 
 func max(x, y int) int {
-	if x > y {
-		return x
-	}
-
-	return y
+	return int(math.Max(float64(x), float64(y)))
 }
 
 func abs(x int) int {
