@@ -34,11 +34,13 @@ func main() {
 				if S[i][j] == byte(okRunes[ir]) {
 					exist = true
 					S[i] = string(append([]byte(S[i])[:j], S[i][j+1:]...))
+					break
 				}
 			}
 
 			if !exist {
 				okRunes = append(okRunes[:ir], okRunes[ir+1:]...)
+				ir--
 			}
 		}
 	}
