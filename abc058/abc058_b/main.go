@@ -10,11 +10,7 @@ import (
 
 func main() {
 	O := nextString()
-	E := nextString()
-
-	if len(O)-len(E) == 1 {
-		E = E + " "
-	}
+	E := nextString() + " "
 
 	var pw []byte
 	for i := 0; i < len(O); i++ {
