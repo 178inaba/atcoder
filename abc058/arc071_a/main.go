@@ -19,6 +19,8 @@ func main() {
 		if len(s) < lenMin {
 			lenMin = len(s)
 			base = s
+		} else if len(s) == lenMin && s < base {
+			base = s
 		} else {
 			S = append(S, s)
 		}
