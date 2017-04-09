@@ -21,7 +21,7 @@ func main() {
 		Y += i*y - (m-(i+1))*y
 	}
 
-	p := int(math.Pow10(9)) + 7
+	p := int(1e9) + 7
 	fmt.Println((X % p) * (Y % p) % p)
 }
 
