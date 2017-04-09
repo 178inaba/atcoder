@@ -5,55 +5,41 @@ import (
 	"fmt"
 	"math"
 	"os"
-	"sort"
 	"strconv"
 )
 
 func main() {
 	n := nextInt()
-	S := make([]string, 0, n-1)
-	var base string
-	lenMin := 50
+	S := make([]string, n)
 	for i := 0; i < n; i++ {
-		s := nextString()
-		if len(s) < lenMin {
-			lenMin = len(s)
-			base = s
-		} else if len(s) == lenMin && s < base {
-			base = s
-		} else {
-			S = append(S, s)
+		S[i] = nextString()
+	}
+
+	var ans []rune
+	for r := 'a'; r <= 'z'; r++ {
+		small := 50
+		for _, s := range S {
+			small = min(small, countRune(s, r))
+		}
+
+		for i := 0; i < small; i++ {
+			ans = append(ans, r)
 		}
 	}
 
-	okRunes := []rune(base)
-	for ir := 0; ir < len(okRunes); ir++ {
-		for i := 0; i < len(S); i++ {
-			exist := false
-			for j := 0; j < len(S[i]); j++ {
-				if S[i][j] == byte(okRunes[ir]) {
-					exist = true
-					S[i] = string(append([]byte(S[i])[:j], S[i][j+1:]...))
-					break
-				}
-			}
-
-			if !exist {
-				okRunes = append(okRunes[:ir], okRunes[ir+1:]...)
-				ir--
-			}
-		}
-	}
-
-	sort.Sort(runeSlice(okRunes))
-	fmt.Println(string(okRunes))
+	fmt.Println(string(ans))
 }
 
-type runeSlice []rune
+func countRune(s string, r rune) int {
+	var cnt int
+	for _, sr := range s {
+		if sr == r {
+			cnt++
+		}
+	}
 
-func (p runeSlice) Len() int           { return len(p) }
-func (p runeSlice) Less(i, j int) bool { return p[i] < p[j] }
-func (p runeSlice) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
+	return cnt
+}
 
 // Input. ----------
 
