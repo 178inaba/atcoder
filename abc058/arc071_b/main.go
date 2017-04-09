@@ -23,11 +23,11 @@ func main() {
 
 	var X, Y int
 	for i, x := range xs {
-		X += (i * x) - ((n - (i + 1)) * x)
+		X += i*x - (n-(i+1))*x
 		X %= p
 	}
 	for i, y := range ys {
-		Y += (i * y) - ((m - (i + 1)) * y)
+		Y += i*y - (m-(i+1))*y
 		Y %= p
 	}
 
