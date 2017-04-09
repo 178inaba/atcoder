@@ -11,27 +11,18 @@ import (
 func main() {
 	n := nextInt()
 	m := nextInt()
-	xs := make([]int, n)
-	for i := 0; i < n; i++ {
-		xs[i] = nextInt()
-	}
-	ys := make([]int, m)
-	for i := 0; i < m; i++ {
-		ys[i] = nextInt()
-	}
-	p := int(math.Pow10(9)) + 7
-
 	var X, Y int
-	for i, x := range xs {
+	for i := 0; i < n; i++ {
+		x := nextInt()
 		X += i*x - (n-(i+1))*x
-		X %= p
 	}
-	for i, y := range ys {
+	for i := 0; i < m; i++ {
+		y := nextInt()
 		Y += i*y - (m-(i+1))*y
-		Y %= p
 	}
 
-	fmt.Println(X * Y % p)
+	p := int(math.Pow10(9)) + 7
+	fmt.Println((X % p) * (Y % p) % p)
 }
 
 // Input. ----------
@@ -72,14 +63,6 @@ func min(x, y int) int {
 
 func max(x, y int) int {
 	return int(math.Max(float64(x), float64(y)))
-}
-
-func abs(x int) int {
-	return int(math.Abs(float64(x)))
-}
-
-func diff(x, y int) int {
-	return abs(-(x) + y)
 }
 
 // ---------- Util.
