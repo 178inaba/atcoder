@@ -51,8 +51,4 @@ func max(x, y int) int {
 	return int(math.Max(float64(x), float64(y)))
 }
 
-func abs(x int) int {
-	return int(math.Abs(float64(x)))
-}
-
 // ---------- Util.
