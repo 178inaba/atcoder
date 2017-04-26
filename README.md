@@ -2,3 +2,7 @@
 
 My [AtCoder](https://atcoder.jp/) answer history.  
 Using golang.
+
+## License
+
+[MIT](LICENSE)
