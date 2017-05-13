@@ -9,22 +9,32 @@ import (
 	"strconv"
 )
 
+type ab struct{ a, b int }
+type abs []ab
+
+func (a abs) Len() int           { return len(a) }
+func (a abs) Less(i, j int) bool { return a[i].a < a[j].a }
+func (a abs) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+
 func main() {
 	N := nextInt()
 	K := nextInt()
-	var list []int
+	var list []ab
 	for i := 0; i < N; i++ {
 		a := nextInt()
 		b := nextInt()
-		var l []int
-		for j := 0; j < b; j++ {
-			l = append(l, a)
-		}
-		list = append(list, l...)
+		list = append(list, ab{a: a, b: b})
 	}
 
-	sort.Ints(list)
-	fmt.Println(list[K-1])
+	sort.Sort(abs(list))
+	var total int
+	for _, l := range list {
+		total += l.b
+		if total >= K {
+			fmt.Println(l.a)
+			return
+		}
+	}
 }
 
 // Input. ----------
