@@ -16,9 +16,11 @@ func main() {
 	for i := 0; i < N; i++ {
 		a := nextInt()
 		b := nextInt()
+		var l []int
 		for j := 0; j < b; j++ {
-			list = append(list, a)
+			l = append(l, a)
 		}
+		list = append(list, l...)
 	}
 
 	sort.Ints(list)
