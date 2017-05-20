@@ -2,15 +2,54 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
-	H := nextInt()
-	W := nextInt()
+	H := uint64(nextInt())
+	W := uint64(nextInt())
+	_, share, mod := areaCalc(H, W, 3)
+	if mod == 0 {
+		fmt.Println(share)
+		return
+	}
+
+	var a, b, c, cnt uint64
+	for a < share {
+		cnt++
+		if H < W {
+			a += H
+		} else {
+			a += W
+		}
+	}
+	if H < W {
+		W -= cnt
+	} else {
+		H -= cnt
+	}
+	area, share, _ := areaCalc(H, W, 2)
+	for b < share {
+		if H < W {
+			b += H
+		} else {
+			b += W
+		}
+	}
+	c = area - b
+
+	fmt.Println(a - c)
+}
+
+func areaCalc(H, W, to uint64) (uint64, uint64, uint64) {
 	area := H * W
+	share := area / to
+	mod := area % to
+
+	return area, share, mod
 }
 
 // Input. ----------
