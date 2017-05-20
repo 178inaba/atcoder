@@ -2,13 +2,42 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	x := nextInt()
+	y := nextInt()
+	groups := [][]int{
+		{1, 3, 5, 7, 8, 10, 12},
+		{4, 6, 9, 11},
+		{2},
+	}
 
+	var isSameGroup bool
+	for _, group := range groups {
+		var isSameGroupX, isSameGroupY bool
+		for _, v := range group {
+			if x == v {
+				isSameGroupX = true
+			} else if y == v {
+				isSameGroupY = true
+			}
+		}
+		if isSameGroupX && isSameGroupY {
+			isSameGroup = true
+			break
+		}
+	}
+
+	if isSameGroup {
+		fmt.Println("Yes")
+	} else {
+		fmt.Println("No")
+	}
 }
 
 // Input. ----------

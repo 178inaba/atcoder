@@ -2,13 +2,32 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	H := nextInt()
+	W := nextInt()
+	as := make([]string, H)
+	for i := 0; i < H; i++ {
+		as[i] = nextString()
+	}
 
+	s := make([]rune, W+2)
+	for i := 0; i < W+2; i++ {
+		s[i] = '#'
+	}
+
+	fmt.Println(string(s))
+	for _, a := range as {
+		fmt.Print("#")
+		fmt.Print(a)
+		fmt.Println("#")
+	}
+	fmt.Println(string(s))
 }
 
 // Input. ----------
