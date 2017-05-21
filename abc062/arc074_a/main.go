@@ -21,16 +21,12 @@ func calc(x, y int) int {
 	ans := math.MaxInt64
 	for i := 1; i < x; i++ {
 		a := y * i
-		b := (y / 2) * (x - i)
-		c := x*y - a - b
-		ans = min(ans, max(a, max(b, c))-min(a, min(b, c)))
-	}
-
-	for i := 1; i < x; i++ {
-		a := y * i
-		b := (x - i) / 2 * y
-		c := x*y - a - b
-		ans = min(ans, max(a, max(b, c))-min(a, min(b, c)))
+		b1 := (y / 2) * (x - i)
+		b2 := (x - i) / 2 * y
+		c1 := x*y - a - b1
+		c2 := x*y - a - b2
+		ans = min(ans, max(a, max(b1, c1))-min(a, min(b1, c1)))
+		ans = min(ans, max(a, max(b2, c2))-min(a, min(b2, c2)))
 	}
 
 	return ans
