@@ -9,47 +9,28 @@ import (
 )
 
 func main() {
-	H := uint64(nextInt())
-	W := uint64(nextInt())
-	_, share, mod := areaCalc(H, W, 3)
-	if mod == 0 {
-		fmt.Println(share)
+	H := nextInt()
+	W := nextInt()
+	if H*W%3 == 0 {
+		fmt.Println(0)
 		return
 	}
 
-	var a, b, c, cnt uint64
-	for a < share {
-		cnt++
-		if H < W {
-			a += H
-		} else {
-			a += W
-		}
-	}
-	if H < W {
-		W -= cnt
-	} else {
-		H -= cnt
-	}
-	area, share, _ := areaCalc(H, W, 2)
-	for b < share {
-		if H < W {
-			b += H
-		} else {
-			b += W
-		}
-	}
-	c = area - b
-
-	fmt.Println(a - c)
+	s1 := calc(H, W)
+	s2 := calc(W, H)
+	fmt.Println(min(s1, s2))
 }
 
-func areaCalc(H, W, to uint64) (uint64, uint64, uint64) {
-	area := H * W
-	share := area / to
-	mod := area % to
+func calc(x, y int) int {
+	ans := math.MaxInt64
+	for i := 1; i < x; i++ {
+		a := x * i
+		b := (x / 2) * (y - i)
+		c := (x - x/2) * (y - i)
+		ans = min(ans, max(a, max(b, c))-min(a, min(b, c)))
+	}
 
-	return area, share, mod
+	return ans
 }
 
 // Input. ----------
