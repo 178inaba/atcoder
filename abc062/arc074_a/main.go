@@ -11,10 +11,6 @@ import (
 func main() {
 	H := nextInt()
 	W := nextInt()
-	if H*W%3 == 0 {
-		fmt.Println(0)
-		return
-	}
 
 	s1 := calc(H, W)
 	s2 := calc(W, H)
@@ -24,9 +20,16 @@ func main() {
 func calc(x, y int) int {
 	ans := math.MaxInt64
 	for i := 1; i < x; i++ {
-		a := x * i
-		b := (x / 2) * (y - i)
-		c := (x - x/2) * (y - i)
+		a := y * i
+		b := (y / 2) * (x - i)
+		c := x*y - a - b
+		ans = min(ans, max(a, max(b, c))-min(a, min(b, c)))
+	}
+
+	for i := 1; i < x; i++ {
+		a := y * i
+		b := (x - i) / 2 * y
+		c := x*y - a - b
 		ans = min(ans, max(a, max(b, c))-min(a, min(b, c)))
 	}
 
