@@ -2,13 +2,50 @@ package main
 
 import (
 	"bufio"
+	"container/heap"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
-func main() {
+type greaterHeap []int
 
+func (h greaterHeap) Len() int            { return len(h) }
+func (h greaterHeap) Less(i, j int) bool  { return h[i] < h[j] }
+func (h greaterHeap) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }
+func (h *greaterHeap) Push(x interface{}) { *h = append(*h, x.(int)) }
+func (h *greaterHeap) Pop() interface{} {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[0 : n-1]
+	return x
+}
+
+type lessHeap greaterHeap
+
+func (h lessHeap) Less(i, j int) bool { return h[i] > h[j] }
+
+func main() {
+	N := nextInt()
+	as := make([]int, 3*N)
+	for i := 0; i < 3*N; i++ {
+		as[i] = nextInt()
+	}
+
+	h := &greaterHeap{}
+	var total int
+	for i := 0; i < N; i++ {
+		heap.Push(h, as[i])
+		total += as[i]
+	}
+	for i := N; i < 2*N; i++ {
+		heap.Push(h, as[i])
+		total += as[i]
+		total -= heap.Pop(h).(int)
+	}
+	fmt.Println(h, total)
 }
 
 // Input. ----------
