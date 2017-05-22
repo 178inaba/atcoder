@@ -59,7 +59,6 @@ func main() {
 		total -= heap.Pop(g).(int)
 		ks[i-N+1] = total
 	}
-	fmt.Println(ks)
 
 	l := &lessHeap{}
 	total = 0
@@ -72,10 +71,14 @@ func main() {
 		heap.Push(l, as[i])
 		total += as[i]
 		total -= heap.Pop(l).(int)
-		ks[i-N+1] -= total
+		ks[i-N] -= total
 	}
 
-	fmt.Println(g, l, ks)
+	ans := math.MinInt64
+	for _, v := range ks {
+		ans = max(ans, v)
+	}
+	fmt.Println(ans)
 }
 
 // Input. ----------
