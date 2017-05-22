@@ -23,9 +23,19 @@ func (h *greaterHeap) Pop() interface{} {
 	return x
 }
 
-type lessHeap greaterHeap
+type lessHeap []int
 
-func (h lessHeap) Less(i, j int) bool { return h[i] > h[j] }
+func (h lessHeap) Len() int            { return len(h) }
+func (h lessHeap) Less(i, j int) bool  { return h[i] > h[j] }
+func (h lessHeap) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }
+func (h *lessHeap) Push(x interface{}) { *h = append(*h, x.(int)) }
+func (h *lessHeap) Pop() interface{} {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[0 : n-1]
+	return x
+}
 
 func main() {
 	N := nextInt()
@@ -34,18 +44,38 @@ func main() {
 		as[i] = nextInt()
 	}
 
-	h := &greaterHeap{}
+	ks := make([]int, N+1)
+
+	g := &greaterHeap{}
 	var total int
 	for i := 0; i < N; i++ {
-		heap.Push(h, as[i])
+		heap.Push(g, as[i])
 		total += as[i]
 	}
+	ks[0] = total
 	for i := N; i < 2*N; i++ {
-		heap.Push(h, as[i])
+		heap.Push(g, as[i])
 		total += as[i]
-		total -= heap.Pop(h).(int)
+		total -= heap.Pop(g).(int)
+		ks[i-N+1] = total
 	}
-	fmt.Println(h, total)
+	fmt.Println(ks)
+
+	l := &lessHeap{}
+	total = 0
+	for i := 3*N - 1; i > 2*N-1; i-- {
+		heap.Push(l, as[i])
+		total += as[i]
+	}
+	ks[N] -= total
+	for i := 2*N - 1; i > N-1; i-- {
+		heap.Push(l, as[i])
+		total += as[i]
+		total -= heap.Pop(l).(int)
+		ks[i-N+1] -= total
+	}
+
+	fmt.Println(g, l, ks)
 }
 
 // Input. ----------
