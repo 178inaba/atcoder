@@ -2,13 +2,21 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
-
+	A := nextInt()
+	B := nextInt()
+	ans := A + B
+	if ans >= 10 {
+		fmt.Println("error")
+		return
+	}
+	fmt.Println(ans)
 }
 
 // Input. ----------
