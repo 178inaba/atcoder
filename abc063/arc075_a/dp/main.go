@@ -17,23 +17,26 @@ func main() {
 		total += ss[i]
 	}
 
-	if total%10 != 0 {
-		fmt.Println(total)
-		return
+	dp := make([][]bool, N+1)
+	for i := 0; i <= N; i++ {
+		dp[i] = make([]bool, total+1)
 	}
-
-	minS := 101
-	for _, s := range ss {
-		if s%10 != 0 {
-			minS = min(minS, s)
+	dp[0][0] = true
+	for i := 0; i < N; i++ {
+		for j := 0; j <= total; j++ {
+			if dp[i][j] {
+				dp[i+1][j] = true
+				dp[i+1][j+ss[i]] = true
+			}
 		}
 	}
-
-	if minS == 101 {
-		fmt.Println(0)
-		return
+	var ans int
+	for score, ok := range dp[N] {
+		if ok && score%10 != 0 {
+			ans = max(ans, score)
+		}
 	}
-	fmt.Println(total - minS)
+	fmt.Println(ans)
 }
 
 // Input. ----------
