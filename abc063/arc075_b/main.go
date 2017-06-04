@@ -13,40 +13,26 @@ func main() {
 	A := nextInt()
 	B := nextInt()
 	hs := make([]int, N)
-	var maxIndex, maxHP int
 	for i := 0; i < N; i++ {
 		hs[i] = nextInt()
-		if hs[i] > maxHP {
-			maxIndex = i
-			maxHP = hs[i]
+	}
+	var under int
+	upper := 1000000000
+	for under+1 < upper {
+		mid := (under + upper) / 2
+		var cnt int
+		for i := 0; i < N; i++ {
+			if B*mid < hs[i] {
+				cnt += int(math.Ceil(float64(hs[i]-B*mid) / float64(A-B)))
+			}
+		}
+		if cnt <= mid {
+			upper = mid
+		} else {
+			under = mid
 		}
 	}
-
-	var cnt int
-	for {
-		cnt++
-		isEnd := true
-		maxHP = 0
-		for i := range hs {
-			if i == maxIndex {
-				hs[i] -= A
-			} else {
-				hs[i] -= B
-			}
-			if hs[i] > maxHP {
-				maxIndex = i
-				maxHP = hs[i]
-			}
-			if hs[i] > 0 {
-				isEnd = false
-			}
-		}
-		if isEnd {
-			break
-		}
-	}
-
-	fmt.Println(cnt)
+	fmt.Println(upper)
 }
 
 // Input. ----------
