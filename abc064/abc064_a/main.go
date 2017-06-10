@@ -2,13 +2,21 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
-
+	r := nextInt()
+	g := nextInt()
+	b := nextInt()
+	if (r*100+g*10+b)%4 == 0 {
+		fmt.Println("YES")
+		return
+	}
+	fmt.Println("NO")
 }
 
 // Input. ----------
