@@ -2,13 +2,36 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
-
+	_ = nextInt()
+	S := nextString()
+	var lCnt, rCnt int
+	ans := []byte(S)
+	for _, s := range S {
+		if s == '(' {
+			lCnt++
+		} else {
+			rCnt++
+		}
+		diffCnt := lCnt - rCnt
+		if diffCnt < 0 {
+			ans = append([]byte{'('}, ans...)
+			lCnt++
+		}
+	}
+	diffCnt := lCnt - rCnt
+	if diffCnt > 0 {
+		for i := 0; i < diffCnt; i++ {
+			ans = append(ans, []byte{')'}...)
+		}
+	}
+	fmt.Println(string(ans))
 }
 
 // Input. ----------
