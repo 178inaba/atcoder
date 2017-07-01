@@ -2,13 +2,20 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 )
 
 func main() {
-
+	prices := make([]int, 3)
+	prices[0] = nextInt()
+	prices[1] = nextInt()
+	prices[2] = nextInt()
+	sort.Ints(prices)
+	fmt.Println(prices[0] + prices[1])
 }
 
 // Input. ----------
