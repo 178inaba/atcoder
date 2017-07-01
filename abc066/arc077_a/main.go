@@ -2,13 +2,29 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
-
+	n := nextInt()
+	as := make([]int, n)
+	for i := 0; i < n; i++ {
+		as[i] = nextInt()
+	}
+	var bs []int
+	for _, a := range as {
+		bs = append(bs, a)
+		for left, right := 0, len(bs)-1; left < right; left, right = left+1, right-1 {
+			bs[left], bs[right] = bs[right], bs[left]
+		}
+	}
+	for _, b := range bs {
+		fmt.Printf("%d ", b)
+	}
+	fmt.Println()
 }
 
 // Input. ----------
