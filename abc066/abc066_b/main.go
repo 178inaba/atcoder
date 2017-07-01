@@ -2,13 +2,31 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
-
+	S := nextString()
+	S = S[:len(S)-2]
+	for {
+		S1 := S[:len(S)/2]
+		S2 := S[len(S)/2:]
+		isSame := true
+		for i := 0; i < len(S1); i++ {
+			if S1[i] != S2[i] {
+				isSame = false
+				break
+			}
+		}
+		if isSame {
+			break
+		}
+		S = S[:len(S)-2]
+	}
+	fmt.Println(len(S))
 }
 
 // Input. ----------
