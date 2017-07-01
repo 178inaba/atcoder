@@ -14,15 +14,31 @@ func main() {
 	for i := 0; i < n; i++ {
 		as[i] = nextInt()
 	}
-	var bs []int
+	var evens, odds []int
+	var isEvenNum bool
 	for _, a := range as {
-		bs = append(bs, a)
-		for left, right := 0, len(bs)-1; left < right; left, right = left+1, right-1 {
-			bs[left], bs[right] = bs[right], bs[left]
+		if isEvenNum {
+			evens = append(evens, a)
+			isEvenNum = false
+		} else {
+			odds = append(odds, a)
+			isEvenNum = true
 		}
 	}
-	for _, b := range bs {
-		fmt.Printf("%d ", b)
+	if len(as)%2 == 0 {
+		for i := len(evens) - 1; i >= 0; i-- {
+			fmt.Printf("%d ", evens[i])
+		}
+		for _, odd := range odds {
+			fmt.Printf("%d ", odd)
+		}
+	} else {
+		for i := len(odds) - 1; i >= 0; i-- {
+			fmt.Printf("%d ", odds[i])
+		}
+		for _, even := range evens {
+			fmt.Printf("%d ", even)
+		}
 	}
 	fmt.Println()
 }
