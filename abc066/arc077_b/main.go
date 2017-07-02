@@ -13,6 +13,11 @@ const (
 	mod  = 1000000007
 )
 
+var (
+	f    [maxN]int
+	invf [maxN]int
+)
+
 func main() {
 	n := nextInt()
 	as := make([]int, n+2)
@@ -37,8 +42,6 @@ func main() {
 	for i := n + 1; i >= 0 && as[i] != s; i-- {
 		nex++
 	}
-	f := make([]int, maxN)
-	invf := make([]int, maxN)
 	f[0], invf[0] = 1, 1
 	inv := make([]int, maxN)
 	inv[1], f[1], invf[1] = 1, 1, 1
@@ -48,12 +51,12 @@ func main() {
 		invf[i] = invf[i-1] * inv[i] % mod
 	}
 	for i := 1; i <= n+1; i++ {
-		ans := (c(n+1, i, f, invf) - c(pre+nex, i-1, f, invf) + mod) % mod
+		ans := (c(n+1, i) - c(pre+nex, i-1) + mod) % mod
 		fmt.Println(ans)
 	}
 }
 
-func c(n, m int, f, invf []int) int {
+func c(n, m int) int {
 	if n < m {
 		return 0
 	}
