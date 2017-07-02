@@ -16,28 +16,31 @@ const (
 func main() {
 	n := nextInt()
 	as := make([]int, n+2)
-	var maxNum, s, pre, nex int
+	var maxNum int
 	for i := 1; i <= n+1; i++ {
 		as[i] = nextInt()
 		maxNum = max(maxNum, as[i])
 	}
 	vis := make([]bool, maxNum+1)
-	inv := make([]int, maxN)
-	f := make([]int, maxN)
-	invf := make([]int, maxN)
+	var s int
 	for i := 1; i <= n+1; i++ {
 		if vis[as[i]] {
 			s = as[i]
 		}
 		vis[as[i]] = true
 	}
+	var pre int
 	for i := 1; i <= n+1 && as[i] != s; i++ {
 		pre++
 	}
+	var nex int
 	for i := n + 1; i >= 0 && as[i] != s; i-- {
 		nex++
 	}
+	f := make([]int, maxN)
+	invf := make([]int, maxN)
 	f[0], invf[0] = 1, 1
+	inv := make([]int, maxN)
 	inv[1], f[1], invf[1] = 1, 1, 1
 	for i := 2; i <= nex+pre || i <= n+1; i++ {
 		inv[i] = mod - (mod/i)*inv[mod%i]%mod
