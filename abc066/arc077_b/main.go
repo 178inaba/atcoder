@@ -21,8 +21,8 @@ func main() {
 		as[i] = nextInt()
 		maxNum = max(maxNum, as[i])
 	}
-	vis := make([]bool, maxNum+1)
 	var s int
+	vis := make([]bool, maxNum+1)
 	for i := 1; i <= n+1; i++ {
 		if vis[as[i]] {
 			s = as[i]
