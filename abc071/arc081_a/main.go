@@ -2,13 +2,40 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 )
 
 func main() {
+	N := nextInt()
+	as := make([]int, N)
+	for i := 0; i < N; i++ {
+		as[i] = nextInt()
+	}
 
+	sort.Sort(sort.Reverse(sort.IntSlice(as)))
+
+	var before int
+	var ans []int
+	for _, a := range as {
+		if a == before {
+			ans = append(ans, a)
+			if len(ans) == 2 {
+				break
+			}
+			before = 0
+			continue
+		}
+		before = a
+	}
+	if len(ans) == 2 {
+		fmt.Println(ans[0] * ans[1])
+		return
+	}
+	fmt.Println(0)
 }
 
 // Input. ----------
