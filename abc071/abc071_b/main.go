@@ -2,13 +2,25 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
-
+	S := nextString()
+	box := map[rune]bool{}
+	for _, s := range S {
+		box[s] = true
+	}
+	for i := 'a'; i <= 'z'; i++ {
+		if !box[i] {
+			fmt.Println(string(i))
+			return
+		}
+	}
+	fmt.Println("None")
 }
 
 // Input. ----------
