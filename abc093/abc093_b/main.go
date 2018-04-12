@@ -2,13 +2,25 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	A := nextInt()
+	B := nextInt()
+	K := nextInt()
+	aEnd := min(B, A+(K-1))
+	bStart := max(A, B-(K-1))
 
+	for i := A; i <= B; i++ {
+		if A <= i && i <= aEnd ||
+			bStart <= i && i <= B {
+			fmt.Println(i)
+		}
+	}
 }
 
 // Input. ----------
