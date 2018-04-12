@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 )
 
@@ -12,14 +13,21 @@ func main() {
 	A := nextInt()
 	B := nextInt()
 	K := nextInt()
-	aEnd := min(B, A+(K-1))
-	bStart := max(A, B-(K-1))
+	m := map[int]struct{}{}
+	for i := A; i < min(B+1, A+K); i++ {
+		m[i] = struct{}{}
+	}
+	for i := B; i > max(A-1, B-K); i-- {
+		m[i] = struct{}{}
+	}
 
-	for i := A; i <= B; i++ {
-		if A <= i && i <= aEnd ||
-			bStart <= i && i <= B {
-			fmt.Println(i)
-		}
+	var ns []int
+	for n := range m {
+		ns = append(ns, n)
+	}
+	sort.Ints(ns)
+	for _, n := range ns {
+		fmt.Println(n)
 	}
 }
 
