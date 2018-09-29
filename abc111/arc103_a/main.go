@@ -33,17 +33,17 @@ func main() {
 	for i := 1; i < n; i += 2 {
 		second[vs[i]]++
 	}
-	maxIndex = -1
+	maxIndexS := -1
 	for k, v := range second {
 		total += v
-		if maxIndex == -1 || v > second[maxIndex] {
-			maxIndex = k
+		if k != maxIndex && (maxIndexS == -1 || v > second[maxIndexS]) {
+			maxIndexS = k
 		}
 	}
-	total -= second[maxIndex]
-
-	if total == 0 && vs[0] == vs[1] {
+	if maxIndexS == -1 {
 		total = n / 2
+	} else {
+		total -= second[maxIndexS]
 	}
 
 	fmt.Println(total)
