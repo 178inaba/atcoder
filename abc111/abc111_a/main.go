@@ -10,6 +10,7 @@ import (
 
 func main() {
 	n := nextString()
+
 	var out string
 	for _, r := range n {
 		switch r {
