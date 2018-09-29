@@ -2,13 +2,51 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	n := nextInt()
+	vs := make([]int, n)
+	for i := 0; i < n; i++ {
+		vs[i] = nextInt()
+	}
 
+	first := map[int]int{}
+	for i := 0; i < n-1; i += 2 {
+		first[vs[i]]++
+	}
+	maxIndex := -1
+	var total int
+	for k, v := range first {
+		total += v
+		if maxIndex == -1 || v > first[maxIndex] {
+			maxIndex = k
+		}
+	}
+	total -= first[maxIndex]
+
+	second := map[int]int{}
+	for i := 1; i < n; i += 2 {
+		second[vs[i]]++
+	}
+	maxIndex = -1
+	for k, v := range second {
+		total += v
+		if maxIndex == -1 || v > second[maxIndex] {
+			maxIndex = k
+		}
+	}
+	total -= second[maxIndex]
+
+	if total == 0 && vs[0] == vs[1] {
+		total = n / 2
+	}
+
+	fmt.Println(total)
 }
 
 // Input. ----------
