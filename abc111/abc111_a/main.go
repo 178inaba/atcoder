@@ -2,13 +2,25 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	n := nextString()
+	var out string
+	for _, r := range n {
+		switch r {
+		case '1':
+			out += string('9')
+		case '9':
+			out += string('1')
+		}
+	}
 
+	fmt.Println(out)
 }
 
 // Input. ----------
