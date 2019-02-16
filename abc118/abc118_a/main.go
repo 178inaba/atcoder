@@ -2,13 +2,22 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	A := nextInt()
+	B := nextInt()
 
+	mod := B % A
+	if mod == 0 {
+		fmt.Println(A + B)
+	} else {
+		fmt.Println(B - A)
+	}
 }
 
 // Input. ----------
