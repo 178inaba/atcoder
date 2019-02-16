@@ -2,13 +2,33 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	N := nextInt()
+	var As []int
+	for i := 0; N > i; i++ {
+		As = append(As, nextInt())
+	}
 
+	result := As[0]
+	for i := 1; len(As)-1 >= i; i++ {
+		result = gcd(result, As[i])
+	}
+
+	fmt.Println(result)
+}
+
+func gcd(a, b int) int {
+	for b != 0 {
+		a, b = b, a%b
+	}
+
+	return a
 }
 
 // Input. ----------
