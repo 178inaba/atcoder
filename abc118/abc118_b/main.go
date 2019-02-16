@@ -2,13 +2,31 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	N := nextInt()
+	_ = nextInt()
+	AMap := map[int]int{}
+	for i := 0; N > i; i++ {
+		K := nextInt()
+		for j := 0; K > j; j++ {
+			AMap[nextInt()]++
+		}
+	}
 
+	var cnt int
+	for _, v := range AMap {
+		if N == v {
+			cnt++
+		}
+	}
+
+	fmt.Println(cnt)
 }
 
 // Input. ----------
