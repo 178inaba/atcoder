@@ -5,8 +5,11 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 )
+
+var matchNum = []int{0, 2, 5, 5, 4, 5, 6, 3, 7, 6}
 
 func main() {
 	N := nextInt()
@@ -16,30 +19,42 @@ func main() {
 		As = append(As, nextInt())
 	}
 
-	numMap := map[int]int{1: 2, 2: 5, 3: 5, 4: 4, 5: 5, 6: 6, 7: 3, 8: 7, 9: 6}
-	priorities := []int{1, 7, 4, 5, 3, 2, 9, 6, 8}
-	var currentPriority []int
-	for _, priority := range priorities {
+	sort.Sort(sort.Reverse(sort.IntSlice(As)))
+
+	dp := make([]int, N+1)
+	dp[0] = 0
+	for i := 1; N >= i; i++ {
+		maxDigit := int(math.Inf(-1))
 		for _, A := range As {
-			if A == priority {
-				currentPriority = append(currentPriority, A)
+			index := i - matchNum[A]
+			if index < 0 || dp[index] < 0 {
+				continue
 			}
+
+			maxDigit = max(maxDigit, dp[index]+1)
 		}
+
+		dp[i] = maxDigit
 	}
 
-	parts := map[int]int{}
-	for N > 0 {
-		fmt.Println(N)
-		for _, cp := range currentPriority {
-			if N > numMap[cp] {
-				N -= numMap[cp]
-				parts[cp]++
+	remain := dp[N]
+	match := N
+	for match > 0 {
+		for _, A := range As {
+			if match-matchNum[A] < 0 {
+				continue
+			}
+
+			if dp[match-matchNum[A]] == remain-1 {
+				fmt.Print(A)
+				match -= matchNum[A]
+				remain--
 				break
 			}
 		}
 	}
 
-	fmt.Println(parts)
+	fmt.Println()
 }
 
 // Input. ----------
