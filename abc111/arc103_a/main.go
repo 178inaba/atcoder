@@ -15,38 +15,63 @@ func main() {
 		vs[i] = nextInt()
 	}
 
-	first := map[int]int{}
-	for i := 0; i < n-1; i += 2 {
-		first[vs[i]]++
-	}
-	maxIndex := -1
-	var total int
-	for k, v := range first {
-		total += v
-		if maxIndex == -1 || v > first[maxIndex] {
-			maxIndex = k
+	os, es := make([]int, 0, n/2), make([]int, 0, n/2)
+	for i, v := range vs {
+		if i%2 == 0 {
+			es = append(es, v)
+		} else {
+			os = append(os, v)
 		}
 	}
-	total -= first[maxIndex]
 
-	second := map[int]int{}
-	for i := 1; i < n; i += 2 {
-		second[vs[i]]++
-	}
-	maxIndexS := -1
-	for k, v := range second {
-		total += v
-		if k != maxIndex && (maxIndexS == -1 || v > second[maxIndexS]) {
-			maxIndexS = k
+	oMap := count(os)
+	eMap := count(es)
+
+	oMaxVal, oMaxCnt := maxAndValue(oMap)
+	eMaxVal, eMaxCnt := maxAndValue(eMap)
+
+	if oMaxVal == eMaxVal {
+		if oMaxCnt == eMaxCnt {
+			oMap[oMaxVal] = 0
+			_, oMaxCnt2 := maxAndValue(oMap)
+			eMap[eMaxVal] = 0
+			_, eMaxCnt2 := maxAndValue(eMap)
+			if oMaxCnt2 > eMaxCnt2 {
+				oMaxCnt = oMaxCnt2
+			} else {
+				eMaxCnt = eMaxCnt2
+			}
+		} else if oMaxCnt > eMaxCnt {
+			eMap[eMaxVal] = 0
+			eMaxVal, eMaxCnt = maxAndValue(eMap)
+		} else {
+			oMap[oMaxVal] = 0
+			oMaxVal, oMaxCnt = maxAndValue(oMap)
 		}
 	}
-	if maxIndexS == -1 {
-		total = n / 2
-	} else {
-		total -= second[maxIndexS]
+
+	fmt.Println(n - (oMaxCnt + eMaxCnt))
+}
+
+func maxAndValue(cntMap map[int]int) (int, int) {
+	var maxVal, maxCnt int
+	for val, cnt := range cntMap {
+		if max(maxCnt, cnt) == cnt {
+			maxCnt = cnt
+			maxVal = val
+		}
 	}
 
-	fmt.Println(total)
+	return maxVal, maxCnt
+}
+
+func count(nums []int) map[int]int {
+	cntMap := map[int]int{}
+	for _, num := range nums {
+		cntMap[num]++
+	}
+
+	return cntMap
 }
 
 // Input. ----------
