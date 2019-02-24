@@ -2,13 +2,25 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
+	"time"
 )
 
 func main() {
+	t, err := time.Parse("2006/01/02", nextString())
+	if err != nil {
+		panic(err)
+	}
 
+	limit := time.Date(2019, 4, 30, 0, 0, 0, 0, time.UTC)
+	if t.After(limit) {
+		fmt.Println("TBD")
+	} else {
+		fmt.Println("Heisei")
+	}
 }
 
 // Input. ----------
