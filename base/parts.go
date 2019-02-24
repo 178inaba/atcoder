@@ -1,11 +1,5 @@
 package main
 
-import "math"
-
-func abs(x int) int {
-	return int(math.Abs(float64(x)))
-}
-
 func diff(x, y int) int {
 	return abs(-(x) + y)
 }

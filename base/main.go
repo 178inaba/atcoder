@@ -30,6 +30,16 @@ func nextInt() int {
 	return i
 }
 
+func nextFloat() float64 {
+	sc.Scan()
+	f64, err := strconv.ParseFloat(sc.Text(), 64)
+	if err != nil {
+		panic(err)
+	}
+
+	return f64
+}
+
 func nextString() string {
 	sc.Scan()
 	if err := sc.Err(); err != nil {
@@ -42,6 +52,10 @@ func nextString() string {
 // ---------- Input.
 
 // Util. ----------
+
+func abs(x int) int {
+	return int(math.Abs(float64(x)))
+}
 
 func min(x, y int) int {
 	return int(math.Min(float64(x), float64(y)))
