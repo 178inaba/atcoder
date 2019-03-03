@@ -59,7 +59,7 @@ func (uf *unionFind) root(A int) int {
 }
 
 func (uf *unionFind) size(A int) int {
-	return uf.parent[uf.root(A)]
+	return -uf.parent[uf.root(A)]
 }
 
 func (uf *unionFind) connect(A, B int) bool {
