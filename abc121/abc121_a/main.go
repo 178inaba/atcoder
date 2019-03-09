@@ -2,13 +2,19 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	H := nextInt()
+	W := nextInt()
+	h := nextInt()
+	w := nextInt()
 
+	fmt.Println((H - h) * (W - w))
 }
 
 // Input. ----------
