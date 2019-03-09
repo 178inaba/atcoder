@@ -17,12 +17,10 @@ func main() {
 
 func calc(n int) int {
 	if n%2 == 0 {
-		a := n / 2
-		return n ^ a%2
+		return n ^ n/2%2
 	}
 
-	a := (n + 1) / 2
-	return a % 2
+	return (n + 1) / 2 % 2
 }
 
 // Input. ----------
