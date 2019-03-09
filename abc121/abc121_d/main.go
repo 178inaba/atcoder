@@ -11,12 +11,18 @@ import (
 func main() {
 	A := nextInt()
 	B := nextInt()
-	var res int
-	for i := A; i <= B; i++ {
-		res ^= i
+
+	fmt.Println(calc(A-1) ^ calc(B))
+}
+
+func calc(n int) int {
+	if n%2 == 0 {
+		a := n / 2
+		return n ^ a%2
 	}
 
-	fmt.Println(res)
+	a := (n + 1) / 2
+	return a % 2
 }
 
 // Input. ----------
