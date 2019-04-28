@@ -10,39 +10,26 @@ import (
 
 func main() {
 	N := nextInt()
-	as := make([]int, N)
+	var sum, minus int
+	min := int(math.Pow10(9))
 	for i := 0; i < N; i++ {
-		as[i] = nextInt()
+		a := nextInt()
+		if a < 0 {
+			minus++
+		}
+		a = abs(a)
+		sum += a
+		if a < min {
+			min = a
+		}
 	}
 
-	var sum int
-	for i := 0; i < N-1; i++ {
-		var flg bool
-		if as[i] <= 0 {
-			if as[i+1] <= 0 || abs(as[i]) >= abs(as[i+1]) {
-				as[i] *= -1
-				as[i+1] *= -1
-				flg = true
-			}
-		}
-
-		if as[i] > 0 {
-			if as[i+1] < 0 && abs(as[i+1]) > abs(as[i]) && flg == false {
-				as[i] *= -1
-				as[i+1] *= -1
-				flg = true
-			}
-		}
-
-		if i == N-2 && as[i+1] < 0 && abs(as[i+1]) > abs(as[i]) && flg == false {
-			as[i] *= -1
-			as[i+1] *= -1
-		}
-
-		sum += as[i]
+	if minus%2 == 0 {
+		fmt.Println(sum)
+		return
 	}
 
-	fmt.Println(sum + as[N-1])
+	fmt.Println(sum - min*2)
 }
 
 // Input. ----------
