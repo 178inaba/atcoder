@@ -10,37 +10,33 @@ import (
 
 func main() {
 	N := nextInt()
-	as := make([]int, N)
+	A := make([]int, N)
 	for i := 0; i < N; i++ {
-		as[i] = nextInt()
+		A[i] = nextInt()
 	}
 
-	ch := make(chan int)
-	for i := 0; i < N; i++ {
-		i := i
-		go func() {
-			var g int
-			for j, a := range as {
-				if j == i {
-					continue
-				}
-
-				g = gcd(g, a)
-			}
-			ch <- g
-		}()
+	L := make([]int, N)
+	R := make([]int, N)
+	L[0] = A[0]
+	R[N-1] = A[N-1]
+	for i := 0; i < N-1; i++ {
+		L[i+1] = gcd(L[i], A[i+1])
+		R[N-1-i-1] = gcd(R[N-1-i], A[N-1-i-1])
 	}
 
-	var max, cnt int
-	for {
-		g := <-ch
-		if g > max {
-			max = g
+	var max int
+	for i := 0; i < N; i++ {
+		var g int
+		if i == 0 {
+			g = R[i+1]
+		} else if i == N-1 {
+			g = L[i-1]
+		} else {
+			g = gcd(L[i-1], R[i+1])
 		}
 
-		cnt++
-		if cnt == N {
-			break
+		if g > max {
+			max = g
 		}
 	}
 
