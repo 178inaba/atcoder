@@ -8,7 +8,10 @@ import (
 )
 
 func main() {
-
+	R := nextInt()
+	G := nextInt()
+	B := nextInt()
+	N := nextInt()
 }
 
 // Input. ----------
