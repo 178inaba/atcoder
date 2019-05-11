@@ -20,8 +20,6 @@ func main() {
 		hasA := strings.HasSuffix(S, "A")
 		if hasB && hasA {
 			hasABCnt++
-			hasBCnt++
-			hasACnt++
 		} else if hasB {
 			hasBCnt++
 		} else if hasA {
@@ -29,13 +27,12 @@ func main() {
 		}
 	}
 
-	ma := max(hasACnt, hasBCnt)
-	mi := min(hasACnt, hasBCnt)
-	if ma == hasABCnt {
-		mi--
+	if hasACnt == 0 && hasBCnt == 0 && hasABCnt > 0 {
+		hasABCnt--
 	}
 
-	fmt.Println(cnt + mi)
+	m := min(hasACnt+hasABCnt, hasBCnt+hasABCnt)
+	fmt.Println(cnt + m)
 }
 
 // Input. ----------
