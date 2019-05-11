@@ -2,13 +2,35 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func main() {
+	N := nextInt()
+	var cnt, hasACnt, hasBCnt int
+	for i := 0; i < N; i++ {
+		S := nextString()
+		cnt += strings.Count(S, "AB")
 
+		if hasB := strings.HasPrefix(S, "B"); hasB {
+			hasBCnt++
+		}
+
+		if hasA := strings.HasSuffix(S, "A"); hasA {
+			hasACnt++
+		}
+	}
+
+	m := min(hasACnt, hasBCnt)
+	if hasACnt == hasBCnt {
+		m--
+	}
+
+	fmt.Println(cnt + m)
 }
 
 // Input. ----------
