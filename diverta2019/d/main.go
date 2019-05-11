@@ -2,13 +2,50 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
+	"runtime"
 	"strconv"
+	"sync"
 )
 
 func main() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
 
+	N := uint64(nextInt())
+
+	var wg sync.WaitGroup
+	ch := make(chan uint64)
+	for m := uint64(1); m <= N; m++ {
+		wg.Add(1)
+		go func(m uint64) {
+			defer wg.Done()
+
+			d := N / m
+			mod := N % m
+			if d == mod {
+				ch <- m
+			}
+		}(m)
+	}
+
+	go func() {
+		wg.Wait()
+		close(ch)
+	}()
+
+	var ans uint64
+	for {
+		n, ok := <-ch
+		if !ok {
+			break
+		}
+
+		ans += n
+	}
+
+	fmt.Println(ans)
 }
 
 // Input. ----------
