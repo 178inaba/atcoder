@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
@@ -12,6 +13,18 @@ func main() {
 	G := nextInt()
 	B := nextInt()
 	N := nextInt()
+
+	var ans int
+	for x := 0; x <= N; x++ {
+		for y := 0; y <= N; y++ {
+			tmp := N - R*x - G*y
+			if tmp >= 0 && tmp%B == 0 {
+				ans++
+			}
+		}
+	}
+
+	fmt.Println(ans)
 }
 
 // Input. ----------
