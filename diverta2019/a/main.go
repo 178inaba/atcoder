@@ -2,12 +2,14 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	fmt.Println(nextInt() - (nextInt() - 1))
 
 }
 
