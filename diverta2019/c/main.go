@@ -11,26 +11,31 @@ import (
 
 func main() {
 	N := nextInt()
-	var cnt, hasACnt, hasBCnt int
+	var cnt, hasABCnt, hasACnt, hasBCnt int
 	for i := 0; i < N; i++ {
 		S := nextString()
 		cnt += strings.Count(S, "AB")
 
-		if hasB := strings.HasPrefix(S, "B"); hasB {
+		hasB := strings.HasPrefix(S, "B")
+		hasA := strings.HasSuffix(S, "A")
+		if hasB && hasA {
+			hasABCnt++
 			hasBCnt++
-		}
-
-		if hasA := strings.HasSuffix(S, "A"); hasA {
+			hasACnt++
+		} else if hasB {
+			hasBCnt++
+		} else if hasA {
 			hasACnt++
 		}
 	}
 
-	m := min(hasACnt, hasBCnt)
-	if hasACnt == hasBCnt {
-		m--
+	ma := max(hasACnt, hasBCnt)
+	mi := min(hasACnt, hasBCnt)
+	if ma == hasABCnt {
+		mi--
 	}
 
-	fmt.Println(cnt + m)
+	fmt.Println(cnt + mi)
 }
 
 // Input. ----------
