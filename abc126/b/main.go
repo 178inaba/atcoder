@@ -2,13 +2,45 @@ package main
 
 import (
 	"bufio"
+	"fmt"
+	"log"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	S := nextString()
+	before, err := strconv.Atoi(S[:2])
+	if err != nil {
+		log.Fatal(err)
+	}
 
+	after, err := strconv.Atoi(S[2:])
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var okBefore, okAfter bool
+	if 1 <= before && before <= 12 {
+		okBefore = true
+	}
+	if 1 <= after && after <= 12 {
+		okAfter = true
+	}
+
+	if okBefore && okAfter {
+		fmt.Println("AMBIGUOUS")
+		return
+	} else if okBefore {
+		fmt.Println("MMYY")
+		return
+	} else if okAfter {
+		fmt.Println("YYMM")
+		return
+	}
+
+	fmt.Println("NA")
 }
 
 // Input. ----------
