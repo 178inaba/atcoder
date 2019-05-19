@@ -2,13 +2,28 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func main() {
+	_ = nextInt()
+	K := nextInt()
+	S := nextString()
+	for i, s := range S {
+		ss := string(s)
+		if i+1 == K {
+			fmt.Print(strings.ToLower(ss))
+			continue
+		}
 
+		fmt.Printf(ss)
+	}
+
+	fmt.Println()
 }
 
 // Input. ----------
