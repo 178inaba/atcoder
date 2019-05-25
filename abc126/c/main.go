@@ -11,36 +11,19 @@ import (
 func main() {
 	N := nextInt()
 	K := nextInt()
-	var isOdd bool
-	if K%2 == 0 {
-		isOdd = true
-	}
 
-	var cnt int
-	for i := 1; i < K; i *= 2 {
-		cnt++
-	}
-
-	var kakuritsu float64
-	kaisu := N
-	if N > K {
-		if !isOdd {
-			kaisu = cnt + 1
-		} else {
-			kaisu = cnt
+	var ans float64
+	for i := 1; i <= N; i++ {
+		p := float64(1)
+		x := i
+		for x < K {
+			p *= 0.5
+			x *= 2
 		}
-
-		kakuritsu = float64(N-kaisu) / float64(N)
+		ans += p / float64(N)
 	}
 
-	for i := 0; i < cnt; i++ {
-		kakuritsu += (float64(1) / float64(N)) * math.Pow(0.5, float64(cnt-i))
-	}
-	if !isOdd {
-		kakuritsu += (float64(1) / float64(N)) * math.Pow(0.5, 1)
-	}
-
-	fmt.Printf("%.10f\n", kakuritsu)
+	fmt.Printf("%.10f\n", ans)
 }
 
 // Input. ----------
