@@ -5,22 +5,46 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"runtime"
 	"strconv"
+	"sync"
 )
 
 func main() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	N := nextInt()
 	M := nextInt()
 	ngCards := map[int]bool{}
-	for i := 0; i < M; i++ {
-		L := nextInt()
-		R := nextInt()
-		for j := 1; j <= N; j++ {
-			if j < L || j > R {
-				ngCards[j] = false
+	ch := make(chan int)
+	done := make(chan struct{})
+	go func() {
+		for {
+			select {
+			case index, ok := <-ch:
+				if !ok {
+					done <- struct{}{}
+					return
+				}
+				ngCards[index] = false
 			}
 		}
+	}()
+	var wg sync.WaitGroup
+	for i := 0; i < M; i++ {
+		wg.Add(1)
+		L, R := nextInt(), nextInt()
+		go func() {
+			defer wg.Done()
+			for j := 1; j <= N; j++ {
+				if j < L || j > R {
+					ch <- j
+				}
+			}
+		}()
 	}
+	wg.Wait()
+	close(ch)
+	<-done
 
 	fmt.Println(N - len(ngCards))
 }
