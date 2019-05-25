@@ -2,13 +2,21 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
-
+	switch A, B := nextInt(), nextInt(); {
+	case A >= 13:
+		fmt.Println(B)
+	case A >= 6 && A <= 12:
+		fmt.Println(B / 2)
+	default:
+		fmt.Println(0)
+	}
 }
 
 // Input. ----------
