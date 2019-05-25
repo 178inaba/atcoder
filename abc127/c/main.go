@@ -9,16 +9,15 @@ import (
 )
 
 func main() {
-	N := nextInt()
+	_ = nextInt()
 	M := nextInt()
-	cards := make([][]bool, N)
-	for i := 0; i < N; i++ {
-		cards[i] = make([]bool, M)
-	}
-
+	cards := map[int]map[int]bool{}
 	for i := 0; i < M; i++ {
 		L, R := nextInt(), nextInt()
 		for j := L; j <= R; j++ {
+			if cards[j-1] == nil {
+				cards[j-1] = map[int]bool{}
+			}
 			cards[j-1][i] = true
 		}
 	}
@@ -26,8 +25,8 @@ func main() {
 	var cnt int
 	for _, card := range cards {
 		ok := true
-		for _, gate := range card {
-			if !gate {
+		for i := 0; i < M; i++ {
+			if !card[i] {
 				ok = false
 				break
 			}
