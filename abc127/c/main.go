@@ -2,13 +2,42 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	N := nextInt()
+	M := nextInt()
+	cards := make([][]bool, N)
+	for i := 0; i < N; i++ {
+		cards[i] = make([]bool, M)
+	}
 
+	for i := 0; i < M; i++ {
+		L, R := nextInt(), nextInt()
+		for j := L; j <= R; j++ {
+			cards[j-1][i] = true
+		}
+	}
+
+	var cnt int
+	for _, card := range cards {
+		ok := true
+		for _, gate := range card {
+			if !gate {
+				ok = false
+				break
+			}
+		}
+		if ok {
+			cnt++
+		}
+	}
+
+	fmt.Println(cnt)
 }
 
 // Input. ----------
