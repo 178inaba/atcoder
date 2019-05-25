@@ -9,34 +9,20 @@ import (
 )
 
 func main() {
-	_ = nextInt()
+	N := nextInt()
 	M := nextInt()
-	cards := map[int]map[int]bool{}
+	ngCards := map[int]bool{}
 	for i := 0; i < M; i++ {
-		L, R := nextInt(), nextInt()
-		for j := L; j <= R; j++ {
-			if cards[j-1] == nil {
-				cards[j-1] = map[int]bool{}
+		L := nextInt()
+		R := nextInt()
+		for j := 1; j <= N; j++ {
+			if j < L || j > R {
+				ngCards[j] = false
 			}
-			cards[j-1][i] = true
 		}
 	}
 
-	var cnt int
-	for _, card := range cards {
-		ok := true
-		for i := 0; i < M; i++ {
-			if !card[i] {
-				ok = false
-				break
-			}
-		}
-		if ok {
-			cnt++
-		}
-	}
-
-	fmt.Println(cnt)
+	fmt.Println(N - len(ngCards))
 }
 
 // Input. ----------
