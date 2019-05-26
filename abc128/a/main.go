@@ -2,13 +2,15 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
-
+	A, P := nextInt(), nextInt()
+	fmt.Println((A*3 + P) / 2)
 }
 
 // Input. ----------
