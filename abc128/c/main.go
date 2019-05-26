@@ -2,13 +2,74 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	N, M := nextInt(), nextInt()
+	ss := make([][]int, M)
+	for i := 0; i < M; i++ {
+		k := nextInt()
+		ss[i] = make([]int, k)
+		for j := 0; j < k; j++ {
+			ss[i][j] = nextInt()
+		}
+	}
 
+	ps := make([]int, M)
+	for i := 0; i < M; i++ {
+		ps[i] = nextInt()
+	}
+
+	allSw := map[int]bool{}
+	var ans int
+	for i := 0; ; i++ {
+		if i != 0 {
+			inc(allSw, 1)
+		}
+
+		isOK := true
+		for j := 0; j < M; j++ {
+			var onCnt int
+			for _, s := range ss[j] {
+				if allSw[s] {
+					onCnt++
+				}
+			}
+			if onCnt%2 != ps[j] {
+				isOK = false
+				break
+			}
+		}
+		if isOK {
+			ans++
+		}
+
+		isEnd := true
+		for k := 1; k <= N; k++ {
+			if !allSw[k] {
+				isEnd = false
+			}
+		}
+		if isEnd {
+			break
+		}
+	}
+
+	fmt.Println(ans)
+}
+
+func inc(m map[int]bool, i int) {
+	if m[i] == true {
+		m[i] = false
+		inc(m, i+1)
+		return
+	}
+
+	m[i] = true
 }
 
 // Input. ----------
