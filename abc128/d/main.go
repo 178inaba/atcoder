@@ -17,8 +17,8 @@ func main() {
 	}
 
 	var ans int
-	for l := 0; l < K; l++ {
-		for r := 0; r < K-l; r++ {
+	for l := 0; l <= K; l++ {
+		for r := 0; r <= K-l; r++ {
 			if l+r > N {
 				continue
 			}
