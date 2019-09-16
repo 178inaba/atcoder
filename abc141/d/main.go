@@ -12,76 +12,47 @@ import (
 func main() {
 	N := nextInt()
 	M := nextInt()
-	pq := make(priorityQueue, N)
+	h := make(intHeap, N)
 	for i := 0; i < N; i++ {
-		pq[i] = &item{
-			value: nextInt(),
-			index: i,
-		}
+		h[i] = nextInt()
 	}
 
-	heap.Init(&pq)
+	heap.Init(&h)
 
 	for i := 0; i < M; i++ {
-		it := heap.Pop(&pq).(*item)
-		heap.Push(&pq, &item{
-			value: it.value / 2,
-		})
+		heap.Push(&h, heap.Pop(&h).(int)/2)
 	}
 
 	var ans int
-	for _, it := range pq {
-		ans += it.value
+	for _, v := range h {
+		ans += v
 	}
 
 	fmt.Println(ans)
 }
 
-// PriorityQueue. ----------
+// Heap. ----------
 
-type item struct {
-	value int // The value is priority.
-	index int
+type intHeap []int
+
+func (h intHeap) Len() int           { return len(h) }
+func (h intHeap) Less(i, j int) bool { return h[i] > h[j] }
+func (h intHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+
+func (h *intHeap) Push(x interface{}) {
+	*h = append(*h, x.(int))
 }
 
-type priorityQueue []*item
-
-func (pq priorityQueue) Len() int { return len(pq) }
-
-func (pq priorityQueue) Less(i, j int) bool {
-	return pq[i].value > pq[j].value
-}
-
-func (pq priorityQueue) Swap(i, j int) {
-	pq[i], pq[j] = pq[j], pq[i]
-	pq[i].index = i
-	pq[j].index = j
-}
-
-func (pq *priorityQueue) Push(x interface{}) {
-	n := len(*pq)
-	item := x.(*item)
-	item.index = n
-	*pq = append(*pq, item)
-}
-
-func (pq *priorityQueue) Pop() interface{} {
-	old := *pq
+func (h *intHeap) Pop() interface{} {
+	old := *h
 	n := len(old)
-	item := old[n-1]
-	old[n-1] = nil  // Avoid memory leak.
-	item.index = -1 // For safety.
-	*pq = old[0 : n-1]
+	x := old[n-1]
+	*h = old[0 : n-1]
 
-	return item
+	return x
 }
 
-func (pq *priorityQueue) update(item *item, value int) {
-	item.value = value
-	heap.Fix(pq, item.index)
-}
-
-// ---------- PriorityQueue.
+// ---------- Heap.
 
 // Input. ----------
 
