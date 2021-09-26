@@ -2,13 +2,29 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 )
 
 func main() {
+	A := nextInt()
+	B := nextInt()
+	C := nextInt()
 
+	for i := 1; ; i++ {
+		c := C * i
+		if c >= A && c <= B {
+			fmt.Println(c)
+			return
+		}
+
+		if c > B {
+			fmt.Println(-1)
+			return
+		}
+	}
 }
 
 // Input. ----------
