@@ -10,41 +10,27 @@ import (
 
 func main() {
 	N := nextInt()
-	As := make([]int, N)
-	for i := 0; i < N; i++ {
+	As := make([]int, N+1)
+	dp := make([][]int, N+1)
+	for i := 1; i <= N; i++ {
 		As[i] = nextInt()
+		dp[i] = make([]int, 10)
 	}
+	dp[0] = make([]int, 10)
+	dp[1][As[1]] = 1
 
-	res := make([]int, 10)
-	for {
-		As = F(As)
-		if len(As) == 1 {
-			res[As[0]]++
-			break
+	for i := 1; i <= N-1; i++ {
+		for j := 0; j <= 9; j++ {
+			dp[i+1][(j+As[i+1])%10] += dp[i][j] % 998244353
+			dp[i+1][(j+As[i+1])%10] %= 998244353
+			dp[i+1][(j*As[i+1])%10] += dp[i][j] % 998244353
+			dp[i+1][(j*As[i+1])%10] %= 998244353
 		}
 	}
 
-	for _, v := range res {
-		fmt.Println(v)
+	for i := 0; i < 10; i++ {
+		fmt.Println(dp[N][i])
 	}
-}
-
-func F(arr []int) []int {
-	x := arr[0]
-	y := arr[1]
-	arr = append(arr[:0], arr[1:]...)
-	arr[0] = (x + y) % 10
-
-	return arr
-}
-
-func G(arr []int) []int {
-	x := arr[0]
-	y := arr[1]
-	arr = append(arr[:0], arr[1:]...)
-	arr[0] = (x * y) % 10
-
-	return arr
 }
 
 // Input. ----------
